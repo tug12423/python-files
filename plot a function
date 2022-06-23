@@ -1,0 +1,21 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import sympy as sym
+
+def f_lsic_beta(beta,c,k):
+    return (1-(2*beta)**k)/(1+c*(2*beta)**k)
+alpha = np.linspace(0, 10, 1000000)
+beta = np.linspace(0, 1, 1000000)
+for c in np.linspace(0.892,0.95,2):
+    plt.plot(beta,f_lsic_beta(beta,0.892,(np.log(-2/(0.892-1)))/np.log(2)),marker="o",markersize=1,label=(r"${f(\beta})=0.892}$"),color="r")
+    plt.plot(beta,f_lsic_beta(beta,0.95,(np.log(-2/(0.95-1)))/np.log(2)),marker="o",markersize=1,label=(r"${f(\beta})=0.95}$"),color="g")
+    plt.legend(loc="upper right", borderpad=0.25, fontsize=24)
+    plt.annotate("c="+str(c),xy=(0.65, 0.23), xycoords='axes fraction',size=22)
+    plt.ylabel(r'${\mathrm{f_\sigma(\beta)}}$', fontsize=20, rotation = 0)
+    plt.xlabel(r'${\mathrm{\beta}}$')
+    plt.ylim(1,-1)
+    plt.xlabel(r"${\beta}$", size=24)
+    plt.xticks(size=24)
+    plt.yticks(size=24)
+    plt.gca().invert_yaxis()
+    plt.show()

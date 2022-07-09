@@ -1,0 +1,15 @@
+import math
+import matplotlib.pyplot as plt
+import numpy as np
+import sympy as sym
+
+def g2_e(alpha,n,e):
+    return (alpha**n)*2.718281828459045**(-e*alpha)
+def f_scan_gsic_alpha_e2(a,b,c,d,alpha):
+        return a*g2_e(alpha,2.0,2.0)+b*g2_e(alpha,3.0,2.0)+c*g2_e(alpha,4.0,2.0)+d*g2_e(alpha,5.0,2.0)
+alpha=sym.Symbol('alpha')
+scaling_fu_e2=sym.diff(f_scan_gsic_alpha_e2(0.000000,0.000000,0.403,-0.153693,alpha))
+alpha = np.array(np.linspace(0,10,100000))
+f_e2=eval('scaling_fu_e2')
+
+print(scaling_fu_e2)

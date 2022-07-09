@@ -1,0 +1,62 @@
+import numpy as np
+import warnings
+import re
+import pandas as pd
+from scipy import stats
+from  sklearn.metrics import r2_score
+import matplotlib
+import matplotlib.pyplot as plt
+from scipy.interpolate import UnivariateSpline
+
+df1=pd.read_csv('Bx_Bc_data.dat_2.40_-4.95_5.80',sep='[' ' ,\t \s] {1,}',engine='python',header=None)
+df1.columns = ["a","b", "c","Z", "ex_calc","ec_calc","exc_calc","ex_exact","ec_exact","exc_exact","ex_lda","ec_lda","exc_lda" ]
+df1['exc_exact-lda']=(df1['exc_exact']-df1['exc_lda'])/df1['Z']
+df1['exc_calc-lda']=(df1['exc_calc']-df1['exc_lda'])/df1['Z']
+df1['x'] = np.power((df1['Z']),(-1.0/3.0))
+df1['exc_calc-exact']=abs((df1['exc_calc']-df1['exc_exact']))/df1['Z']
+x=list(df1['x'])
+exc_exact_lda = list(df1['exc_exact-lda'])
+exc_calc_lda = list(df1['exc_calc-lda'])
+a_values=list(df1['a'])
+b_values=list(df1['b'])
+c_values=list(df1['c'])
+coeffs6 = np.polyfit(x[0:4],exc_exact_lda[0:4], 2)
+coeffs7 = np.polyfit(x[4:8],exc_calc_lda[4:8], 2)
+coeffs8 = np.polyfit(x[8:12],exc_calc_lda[8:12], 2)
+
+p6 = np.poly1d(coeffs6)
+p7 = np.poly1d(coeffs7)
+p8 = np.poly1d(coeffs8)
+
+exc_exact_lda_hat = list(p6(x))
+exc_lsic_lda_hat=list(p7(x))
+exc_lsic_plus_lda_hat=list(p8(x))
+
+r1squared= r2_score(exc_exact_lda[0:4], exc_exact_lda_hat[0:4])
+r2squared= r2_score(exc_calc_lda[4:8], exc_lsic_lda_hat[4:8])
+r3squared= r2_score(exc_calc_lda[8:12], exc_lsic_plus_lda_hat[8:12])
+plt.scatter(x[0:4],exc_exact_lda[0:4], color='g')
+plt.scatter(x[4:8],exc_calc_lda[4:8], color='blue')
+plt.scatter(x[8:12],exc_calc_lda[8:12], color='red')
+
+spl6 = UnivariateSpline(x[0:4], exc_exact_lda_hat[0:4])
+spl7 = UnivariateSpline(x[4:8], exc_lsic_lda_hat[4:8])
+spl8 = UnivariateSpline(x[8:12], exc_lsic_plus_lda_hat[8:12])
+
+xs1 = np.linspace(-0.01, 0.48, 1000)
+plt.plot(xs1, spl6(xs1), lw=3, color='g',label=r'$ (E_{xc}(exact)-E_{xc}(LDA))/Z$',alpha=0.5)
+plt.plot(xs1, spl7(xs1), lw=3, color='blue',label=r'$(E_{xc}(LSIC)-E_{xc}(LDA))/Z$',alpha=0.5)
+plt.plot(xs1, spl8(xs1), lw=3, color='red',label=r'$(E_{xc}(LSIC+)-E_{xc}(LDA))/Z$',alpha=0.5)
+plt.xlabel(r'$Z^{-1/3}$ ', fontsize=30)
+plt.ylabel(r'$Energy \  Difference$',rotation=90, fontsize=40)
+plt.annotate(r'RSquared  $E_{xc}(exact))$='+str(r1squared),xy=(0.65, 0.05), xycoords='axes fraction')
+plt.annotate(r'RSquared  $E_{xc}(LSIC)$='+str(r2squared),xy=(0.65, 0.08), xycoords='axes fraction')
+plt.annotate(r'RSquared  $E_{xc}(LSIC+)$='+str(r3squared),xy=(0.65, 0.11), xycoords='axes fraction')
+plt.annotate(r'Coeff.  $E_{xc}(exact)$='+str(coeffs6),xy=(0.6, 0.14), xycoords='axes fraction')
+plt.annotate(r'Coeff.  $E_{xc}(LSIC)$='+str(coeffs7),xy=(0.6, 0.17), xycoords='axes fraction')
+plt.annotate(r'Coeff.  $E_{xc}(LSIC+)$='+str(coeffs7),xy=(0.6, 0.20), xycoords='axes fraction')
+plt.xticks(fontsize=22)
+plt.yticks(fontsize=22)
+plt.legend(loc='center right', fontsize=22)
+plt.axvline(x=0.0, color='black')
+plt.show()

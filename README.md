@@ -15,7 +15,7 @@ Next, the script uses the polynomials to make predictions and calculates the R-s
 
 Finally, the script plots the original data points and the fitted polynomials. The polynomials are smoothed using the UnivariateSpline method and are plotted on the same graph with different colors and labels. The graph is labeled with the x and y axis labels, and the R-squared values are annotated on the plot.
 
-# Introduction
+# Find Analytical Derivative of a function
 This code calculates the derivative of the function f_scan_gsic_alpha_e2 with respect to alpha using the sympy library. The code also plots the derivative of the function.
 
 ## Dependencies

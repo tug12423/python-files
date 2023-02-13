@@ -14,3 +14,24 @@ The script then fits a 2nd degree polynomial regression to three sets of data po
 Next, the script uses the polynomials to make predictions and calculates the R-squared values using the r2_score method. The R-squared values are stored in variables r1squared, r2squared, and r3squared.
 
 Finally, the script plots the original data points and the fitted polynomials. The polynomials are smoothed using the UnivariateSpline method and are plotted on the same graph with different colors and labels. The graph is labeled with the x and y axis labels, and the R-squared values are annotated on the plot.
+
+# Introduction
+This code calculates the derivative of the function f_scan_gsic_alpha_e2 with respect to alpha using the sympy library. The code also plots the derivative of the function.
+
+## Dependencies
+The code depends on the following libraries:
+
+math
+matplotlib.pyplot
+numpy
+sympy
+## Functions
+The code contains two functions:
+
+* g2_e(alpha, n, e): Returns the value of (alpha^n) * e^(-e * alpha).
+* f_scan_gsic_alpha_e2(a, b, c, d, alpha): Returns the value of the function a * g2_e(alpha, 2.0, 2.0) + b * g2_e(alpha, 3.0, 2.0) + c * g2_e(alpha, 4.0, 2.0) + d * g2_e(alpha, 5.0, 2.0).
+## Execution
+The code calculates the derivative of f_scan_gsic_alpha_e2 using the sympy library and stores it in the variable scaling_fu_e2. The value of the derivative is evaluated over a range of values of alpha using the numpy library and stored in the f_e2 variable. Finally, the plot of the derivative is generated using the matplotlib.pyplot library.
+
+## Conclusion
+This code provides an example of how to calculate the derivative of a function and plot it using the sympy and matplotlib.pyplot libraries in Python.

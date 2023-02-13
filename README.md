@@ -28,8 +28,8 @@ sympy
 ## Functions
 The code contains two functions:
 
-* g2_e(alpha, n, e): Returns the value of (alpha^n) * e^(-e * alpha).
-* f_scan_gsic_alpha_e2(a, b, c, d, alpha): Returns the value of the function a * g2_e(alpha, 2.0, 2.0) + b * g2_e(alpha, 3.0, 2.0) + c * g2_e(alpha, 4.0, 2.0) + d * g2_e(alpha, 5.0, 2.0).
+* $g2_e(alpha, n, e)$: Returns the value of $(alpha^n) * e^(-e * alpha)$.
+* f_scan_gsic_alpha_e2(a, b, c, d, alpha): Returns the value of the function $a * g2_e(alpha, 2.0, 2.0) + b * g2_e(alpha, 3.0, 2.0) + c * g2_e(alpha, 4.0, 2.0) + d * g2_e(alpha, 5.0, 2.0)$.
 ## Execution
 The code calculates the derivative of f_scan_gsic_alpha_e2 using the sympy library and stores it in the variable scaling_fu_e2. The value of the derivative is evaluated over a range of values of alpha using the numpy library and stored in the f_e2 variable. Finally, the plot of the derivative is generated using the matplotlib.pyplot library.
 

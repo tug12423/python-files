@@ -1,30 +1,16 @@
 # Polynomial Fit and Plot
-This is a python script that performs polynomial fits and plots the results. It uses the numpy, pandas, scipy, sklearn, and matplotlib libraries.
+This is a python script that performs polynomial fits and plots the results. This code is a data analysis script in python using the libraries numpy, pandas, scipy, sklearn and matplotlib.
 
 ## Input Data
 The input data is a CSV file named Bx_Bc_data.dat_2.40_-4.95_5.80. It contains data for columns a, b, c, Z, ex_calc, ec_calc, exc_calc, ex_exact, ec_exact, exc_exact, ex_lda, ec_lda, and exc_lda.
 
-## Data Pre-processing
-The following operations are performed on the input data:
+## Method
+The script starts by importing the necessary libraries. The data is then loaded into a pandas dataframe using the read_csv method. The data is read from a file named 'Bx_Bc_data.dat_2.40_-4.95_5.80', with a specified delimiter and with the 'python' engine. The columns in the data are then named.
 
-The data is read into a pandas dataframe using the pd.read_csv function.
-The columns of the dataframe are named using the df1.columns attribute.
-New columns are created: exc_exact-lda, exc_calc-lda, x, and exc_calc-exact.
-The x column is calculated as the power of -1/3 of the values in the Z column.
-The values in the newly created columns are calculated using the corresponding columns in the dataframe.
-## Polynomial Fits
-The following polynomial fits are performed:
+Next, the script performs some calculations on the data and creates new columns. Three new columns are created with the difference between two energy values, and another two columns with the absolute value of the difference between two energy values divided by Z, where Z is a column in the data. The value of Z is also raised to the power of -1/3 and stored in a new column.
 
-A second degree polynomial fit is performed on the values of exc_exact-lda for the first 4 rows of the dataframe.
-A second degree polynomial fit is performed on the values of exc_calc-lda for the next 4 rows of the dataframe.
-A second degree polynomial fit is performed on the values of exc_calc-lda for the next 4 rows of the dataframe.
-## Plotting
-The following plots are generated:
+The script then fits a 2nd degree polynomial regression to three sets of data points using the np.polyfit method and stores the polynomial coefficients in separate variables (coeffs6, coeffs7, coeffs8). The resulting polynomials are stored in variables p6, p7, p8.
 
-A scatter plot of the values of exc_exact-lda for the first 4 rows of the dataframe. The points are colored green.
-A scatter plot of the values of exc_calc-lda for the next 4 rows of the dataframe. The points are colored blue.
-A scatter plot of the values of exc_calc-lda for the next 4 rows of the dataframe. The points are colored red.
-A line plot of the polynomial fit performed on exc_exact-lda for the first 4 rows of the dataframe. The color is green and the line is labeled with (E_{xc}(exact)-E_{xc}(LDA))/Z.
-A line plot of the polynomial fit performed on exc_calc-lda for the next 4 rows of the dataframe. The color is blue and the line is labeled with (E_{xc}(LSIC)-E_{xc}(LDA))/Z.
-A line plot of the polynomial fit performed on exc_calc-lda for the next 4 rows of the dataframe. The color is red and the line is labeled with (E_{xc}(LSIC^+)-E_{xc}(LDA))/Z.
-The r2_score is calculated for each of the polynomial fits and the
+Next, the script uses the polynomials to make predictions and calculates the R-squared values using the r2_score method. The R-squared values are stored in variables r1squared, r2squared, and r3squared.
+
+Finally, the script plots the original data points and the fitted polynomials. The polynomials are smoothed using the UnivariateSpline method and are plotted on the same graph with different colors and labels. The graph is labeled with the x and y axis labels, and the R-squared values are annotated on the plot.
